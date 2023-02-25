@@ -1,21 +1,22 @@
+#Error has been fixed
 import numpy as np
 import scipy.linalg as spla
 
 def compute_offline_matrices(Q, R, F_x, F_u, FN, A, B, f,N):
-    """
-    Computes the value functions P_t and p_t for a finite-horizon LQR problem.
-        Q (numpy.ndarray): The state cost matrix of shape (n, n).
-        R (numpy.ndarray): The control cost matrix of shape (m, m).
-        F_x (numpy.ndarray): The state dynamics matrix of shape (n, n).
-        F_u (numpy.ndarray): The control dynamics matrix of shape (n, m).
-        B (numpy.ndarray): The control input matrix of shape (n, 1).
-        A (numpy.ndarray): The state transition matrix of shape (n, n).
-        f (numpy.ndarray): The state offset vector of shape (n, 1).
 
-    Returns:
-        P (List[numpy.ndarray]): A list of P_t matrices of shape (n, n) for t=0,...,N.
-        p (List[numpy.ndarray]): A list of p_t vectors of shape (n, 1) for t=0,...,N.
-    """
+ #   Computes the value functions P_t and p_t for a finite-horizon LQR problem.
+ #       Q (numpy.ndarray): The state cost matrix of shape (n, n).
+ #       R (numpy.ndarray): The control cost matrix of shape (m, m).
+ #       F_x (numpy.ndarray): The state dynamics matrix of shape (n, n).
+ #       F_u (numpy.ndarray): The control dynamics matrix of shape (n, m).
+ #       B (numpy.ndarray): The control input matrix of shape (n, 1).
+ #       A (numpy.ndarray): The state transition matrix of shape (n, n).
+ #       f (numpy.ndarray): The state offset vector of shape (n, 1).
+
+ #   Returns:
+ #       P (List[numpy.ndarray]): A list of P_t matrices of shape (n, n) for t=0,...,N.
+ #       p (List[numpy.ndarray]): A list of p_t vectors of shape (n, 1) for t=0,...,N.
+
     # Compute H
     Fxu = np.hstack((F_x, F_u))
     FxuKron = np.kron(np.eye(N - 1), Fxu)
