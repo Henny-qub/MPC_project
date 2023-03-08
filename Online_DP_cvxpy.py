@@ -52,7 +52,7 @@ u = cp.Variable((2, N-1))
 cost = cp.sum_squares(Q @ x[:, N-1]) + cp.sum_squares(R @ u)
 
 # Define the constraints
-# initial state x[:,0] is equal to [1, 1]\
+# initial state x[:,0] is equal to [1, 1]
 constr = [x[:,0] == np.array([1, 1])]
 for n in range(N-1):
     constr += [x[:,n+1] == A @ x[:,n] + B @ u[:,n]]
