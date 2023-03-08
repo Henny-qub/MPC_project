@@ -41,17 +41,29 @@ print("yN:", yN)
 print("uN:", uN)
 
 # Solve using cvxpy
+# Define the optimization variables x and u. x is a 2xN matrix representing the state at each time step, 
+# and u is a 2x(N-1) matrix representing the control at each time step.
 x = cp.Variable((2, N))
 u = cp.Variable((2, N-1))
 
+# Define the cost function
+# The cost is the sum of squares of the state at the last time step
+# and the sum of squares of the control input.
 cost = cp.sum_squares(Q @ x[:, N-1]) + cp.sum_squares(R @ u)
+
+# Define the constraints
+# initial state x[:,0] is equal to [1, 1]\
 constr = [x[:,0] == np.array([1, 1])]
 for n in range(N-1):
     constr += [x[:,n+1] == A @ x[:,n] + B @ u[:,n]]
     constr += [u[:,n] == -K1 @ x[:,n] - d1]
 
+# create a Problem object with the cost and constraint functions and 
+# call the solve() method to obtain the optimal values of x and u.
 prob = cp.Problem(cp.Minimize(cost), constr)
 prob.solve()
 
 print("x_opt:", x.value)
 print("u_opt:", u.value)
+
+# the output should be the same as the yN and uN obtained from the online DP
